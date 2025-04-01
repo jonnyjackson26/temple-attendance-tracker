@@ -13,6 +13,7 @@ export default {
     cardBackground: '#ffffff',
     accent: '#ff6b6b',
     secondary: '#f8f9fa',
+    success: '#4CAF50',
   },
   dark: {
     text: '#ffffff',
@@ -25,5 +26,6 @@ export default {
     cardBackground: '#1c1c1e',
     accent: '#ff6b6b',
     secondary: '#2c2c2e',
+    success: '#4CAF50',
   },
 };
