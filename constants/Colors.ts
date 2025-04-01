@@ -14,6 +14,8 @@ export default {
     accent: '#ff6b6b',
     secondary: '#f8f9fa',
     success: '#4CAF50',
+    primary: tintColorLight,
+    secondary: '#f0f0f0',
   },
   dark: {
     text: '#ffffff',

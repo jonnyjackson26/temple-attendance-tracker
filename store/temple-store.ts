@@ -1,24 +1,33 @@
 import { create } from 'zustand';
 import { persist, createJSONStorage } from 'zustand/middleware';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { AppState, Temple } from '../types';
+import { AppState, Temple, Visit } from '../types';
 import { temples as mockTemples } from '../mocks/temples';
 
-interface TempleStore extends AppState {
-  // ... other methods ...
+interface TempleState {
+  temples: Temple[];
+  visits: Visit[];
+  goals: {
+    weeklyVisits: number;
+    monthlyVisits: number;
+  };
+  favoriteTemples: string[];
+  addVisit: (visit: Omit<Visit, 'id'>) => void;
+  setTemples: (temples: Temple[]) => void;
   getAllTemples: () => Temple[];
   getFavoriteTemples: () => Temple[];
   toggleFavoriteTemple: (templeId: string) => void;
 }
 
-export const useTempleStore = create<TempleStore>()(
+export const useTempleStore = create<TempleState>()(
   persist(
     (set, get) => ({
+      temples: [],
       visits: [],
       favoriteTemples: [],
       goals: {
-        weeklyVisits: 1,
-        monthlyVisits: 4,
+        weeklyVisits: 0,
+        monthlyVisits: 0,
       },
 
       getAllTemples: () => {
@@ -45,6 +54,22 @@ export const useTempleStore = create<TempleStore>()(
               : [...state.favoriteTemples, templeId]
           };
         }),
+
+      addVisit: (visitData) => {
+        set((state) => ({
+          visits: [
+            ...state.visits,
+            {
+              ...visitData,
+              id: Math.random().toString(36).substr(2, 9),
+            },
+          ],
+        }));
+      },
+
+      setTemples: (temples: Temple[]) => {
+        set({ temples });
+      },
 
       // ... other methods ...
     }),

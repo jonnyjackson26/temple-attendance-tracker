@@ -7,6 +7,7 @@ import { useEffect } from 'react';
 import 'react-native-reanimated';
 
 import { useColorScheme } from '@/components/useColorScheme';
+import { useTempleStore } from '@/store/temple-store';
 
 export {
   // Catch any errors thrown by the Layout component.
@@ -21,11 +22,25 @@ export const unstable_settings = {
 // Prevent the splash screen from auto-hiding before asset loading is complete.
 SplashScreen.preventAutoHideAsync();
 
+// Example initial temples data
+const initialTemples = [
+  {
+    id: '1',
+    name: 'Salt Lake Temple',
+    location: 'Salt Lake City, Utah',
+    isFavorite: false,
+    // ... other temple properties
+  },
+  // ... other temples
+];
+
 export default function RootLayout() {
   const [loaded, error] = useFonts({
     SpaceMono: require('../assets/fonts/SpaceMono-Regular.ttf'),
     ...FontAwesome.font,
   });
+
+  const setTemples = useTempleStore((state) => state.setTemples);
 
   // Expo Router uses Error Boundaries to catch errors in the navigation tree.
   useEffect(() => {
@@ -37,6 +52,11 @@ export default function RootLayout() {
       SplashScreen.hideAsync();
     }
   }, [loaded]);
+
+  useEffect(() => {
+    // Initialize temples when the app starts
+    setTemples(initialTemples);
+  }, []);
 
   if (!loaded) {
     return null;

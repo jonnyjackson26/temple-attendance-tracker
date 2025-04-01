@@ -1,22 +1,24 @@
-export const ordinances = [
+import { Ordinance } from '@/types';
+
+export const ordinances: Ordinance[] = [
   {
     id: 'baptism',
     name: 'Baptism',
-  },
-  {
-    id: 'confirmation',
-    name: 'Confirmation',
-  },
-  {
-    id: 'initiatory',
-    name: 'Initiatory',
+    icon: 'droplets'
   },
   {
     id: 'endowment',
     name: 'Endowment',
+    icon: 'crown'
   },
   {
     id: 'sealing',
     name: 'Sealing',
+    icon: 'heart'
   },
+  {
+    id: 'initiatory',
+    name: 'Initiatory',
+    icon: 'sparkles'
+  }
 ]; 
